@@ -75,7 +75,7 @@ fun Clock() {
                             sweepAngle = if (hour == 0f) 1f else hour + (((minute / 6) / 60) * 30f),
                             useCenter = false,
                             style = Stroke(
-                                width = 15f,
+                                width = strokeWidth,
                                 cap = StrokeCap.Round
                             )
                         )
@@ -95,7 +95,7 @@ fun Clock() {
                             sweepAngle = minute + (((second / 6) / 60) * 6),
                             useCenter = false,
                             style = Stroke(
-                                width = 15f,
+                                width = strokeWidth,
                                 cap = StrokeCap.Round
                             )
                         )
@@ -115,7 +115,7 @@ fun Clock() {
                             sweepAngle = second,
                             useCenter = false,
                             style = Stroke(
-                                width = 15f,
+                                width = strokeWidth,
                                 cap = StrokeCap.Round
                             )
                         )
@@ -130,7 +130,7 @@ fun Clock() {
                 withStyle(
                     SpanStyle(
                         color = colors.random(),
-                        fontSize = 48.sp,
+                        fontSize = (clockSize.value * hourScale).sp,
                         fontWeight = FontWeight.Bold
                     )
                 ) {
@@ -140,21 +140,22 @@ fun Clock() {
                 withStyle(
                     SpanStyle(
                         color = colors.random(),
-                        fontSize = 60.sp,
+                        fontSize = (clockSize.value * minuteScale).sp,
                         fontWeight = FontWeight.Bold
                     )
                 ) {
                     append(if ((minute.roundToInt() / 6) < 10) "0${minute.roundToInt() / 6}" else "${minute.roundToInt() / 6}")
                 }
                 append("\n")
+                append("  ")
                 withStyle(
                     SpanStyle(
                         color = colors.random(),
-                        fontSize = 100.sp,
+                        fontSize = (clockSize.value * secondScale).sp,
                         fontWeight = FontWeight.Bold
                     )
                 ) {
-                    append(if ((second.roundToInt() / 6) < 10) " 0${second.roundToInt() / 6}" else " ${second.roundToInt() / 6}")
+                    append(if ((second.roundToInt() / 6) < 10) "0${second.roundToInt() / 6}" else "${second.roundToInt() / 6}")
                 }
 
                 withStyle(
@@ -177,7 +178,13 @@ fun Clock() {
 
 
 
-private val clockSize = 420.dp
+private val clockSize = 520.dp
+private val strokeWidth = clockSize.value * 0.0375f
+private const val hourScale = 0.125f
+private const val minuteScale = 0.155f
+private const val secondScale = 0.25f
+
+
 
 private val colors: List<Color> = listOf(
     Color.Blue,

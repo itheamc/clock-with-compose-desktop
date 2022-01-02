@@ -5,7 +5,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 
@@ -15,7 +14,7 @@ fun App() {
 
     MaterialTheme {
         Surface(
-            modifier = Modifier.background(color = androidx.compose.material3.MaterialTheme.colorScheme.surface)
+            modifier = Modifier.background(color = MaterialTheme.colorScheme.surface)
         ) {
             Clock()
 //            AnalogClock()
@@ -24,7 +23,7 @@ fun App() {
 }
 
 fun main() = application {
-    Window(onCloseRequest = ::exitApplication) {
+    Window(onCloseRequest = ::exitApplication, undecorated = false) {
         App()
     }
 }
